@@ -100,13 +100,15 @@ void tela_adicao_tarefas() {
 
 void tela_delecao_tarefas() {
     // limpar_tela();
-    //
-    // char *nomesTarefas[QTD_MAX_TAREFAS];
-    // for (int i = 0; i < qtdTarefas; i++)
-    //     nomesTarefas[i] = tarefas[i].descricao;
-    // int escolha = escolha_em_intervalo("Qual tarefa deseja remover?", nomesTarefas, qtdTarefas);
-    //
-    // remover_tarefa(&tarefas[escolha]);
+
+    char *nomesTarefas[QTD_MAX_TAREFAS];
+    for (int i = 0; i < qtdTarefas; i++)
+        nomesTarefas[i] = tarefas[i].descricao;
+
+    // array eh 0-indexado
+    int escolha = escolha_em_intervalo("Qual tarefa deseja remover?", nomesTarefas, qtdTarefas) - 1;
+
+    remover_tarefa(&tarefas[escolha]);
 }
 
 void tela_modificacao_tarefas() {
@@ -121,6 +123,8 @@ void tela_modificacao_tarefas() {
     char *nomesTarefas[QTD_MAX_TAREFAS];
     for (int i = 0; i < qtdTarefas; i++)
         nomesTarefas[i] = tarefas[i].descricao;
+
+    // array eh 0-indexado
     int escolhaTarefa = escolha_em_intervalo("Qual tarefa deseja modificar?", nomesTarefas, qtdTarefas) - 1;
 
     Tarefa *tarefaAtualizada = malloc(sizeof(Tarefa));
