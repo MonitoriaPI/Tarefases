@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "cli.h"
 #include "dbg.h"
 
 #define str_equals(x, y) (strcmp((x), (y)) == 0)
@@ -65,8 +66,10 @@ int salvar_tarefas() {
     if (listaDeTarefas == NULL) return -1;
 
     for (int idx = 0; idx < qtdTarefas; idx++) {
-        fprintf(listaDeTarefas, "%s %d", tarefas[idx].descricao, tarefas[idx].estaConcluida);
+        fprintf(listaDeTarefas, "%s;; %d\n", tarefas[idx].descricao, tarefas[idx].estaConcluida);
     }
+
+    fclose(listaDeTarefas);
 
     return 1;
 }
@@ -75,13 +78,16 @@ int carregar_tarefas() {
     FILE *listaDeTarefas = fopen("tarefas.TODO~", "r");
     if (listaDeTarefas == NULL) return -1;
 
-    Tarefa *tarefa = malloc(sizeof(Tarefa));
+    char descricao[MAX_BUFF_SIZE];
+    int estaConcluida = 0;
 
-    while (fscanf(listaDeTarefas, "%s %d", (*tarefa).descricao, (*tarefa).estaConcluida) == 2) {
-        adicionar_tarefa(*tarefa);
+    while (fscanf(listaDeTarefas, "%[^;];; %d\n", descricao, &estaConcluida) == 2) {
+        adicionar_tarefa(construir_tarefa(
+            descricao,
+            estaConcluida
+        ));
     }
 
-    free(tarefa);
     fclose(listaDeTarefas);
 
     return 1;

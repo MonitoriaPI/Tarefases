@@ -69,7 +69,6 @@ int tela_principal() {
 }
 
 void listar_tarefas() {
-    dbgi(qtdTarefas)
 
     if (qtdTarefas == 0) {
         puts("Nenhuma tarefa adicionada no momento\n");
