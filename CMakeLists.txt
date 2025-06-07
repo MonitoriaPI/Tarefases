@@ -10,8 +10,11 @@ pkg_check_modules(GTK REQUIRED gtk4)
 
 add_executable(${PROJECT_NAME}
         main.c
+        cli.c
+        cli.h
         tarefas_funcs.c
         tarefas_funcs.h
+        dbg.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${GTK_LIBRARIES})

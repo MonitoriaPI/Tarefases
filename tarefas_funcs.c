@@ -7,13 +7,30 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "dbg.h"
+
 #define str_equals(x, y) (strcmp((x), (y)) == 0)
 
-int adicionar_tarefa(Tarefa *tarefa) {
+Tarefa tarefas[QTD_MAX_TAREFAS];
+int qtdTarefas = 0;
+
+Tarefa construir_tarefa(char *descricao, int estaConcluida) {
+    Tarefa t = {
+        .descricao = strdup(descricao),
+        .estaConcluida = estaConcluida
+    };
+    return t;
+}
+
+void copiar_tarefa(Tarefa *tarefaDest, Tarefa *tarefaSrc) {
+    (*tarefaDest).descricao = strdup((*tarefaSrc).descricao);
+    (*tarefaDest).estaConcluida = (*tarefaSrc).estaConcluida;
+}
+
+int adicionar_tarefa(Tarefa tarefa) {
     if (qtdTarefas == QTD_MAX_TAREFAS) return 0;
 
-    tarefas[qtdTarefas] = *tarefa;
-    qtdTarefas++;
+    copiar_tarefa(&tarefas[qtdTarefas++], &tarefa);
 
     return 1;
 }
@@ -21,7 +38,10 @@ int adicionar_tarefa(Tarefa *tarefa) {
 int remover_tarefa(Tarefa *tarefa) {
     if (qtdTarefas == 0) return 0;
 
-    for (int idx = encontrar_tarefa(tarefa); idx < qtdTarefas-1; idx++)
+    int idx = encontrar_tarefa(tarefa);
+    if (idx == -1) return -1;
+
+    for (; idx < qtdTarefas-1; idx++)
         tarefas[idx] = tarefas[idx+1];
 
     qtdTarefas--;
@@ -29,11 +49,11 @@ int remover_tarefa(Tarefa *tarefa) {
     return 1;
 }
 
-int atualizar_tarefa(Tarefa *tarefa, Tarefa *tarefaAtualizada) {
-    int idx = encontrar_tarefa(tarefa);
+int atualizar_tarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
+    int idx = encontrar_tarefa(&tarefa);
     if (idx == -1) return 0;
 
-    tarefas[idx] = *tarefaAtualizada;
+    copiar_tarefa(&tarefas[idx], &tarefaAtualizada);
 
     return 1;
 }
@@ -47,6 +67,8 @@ int salvar_tarefas() {
     for (int idx = 0; idx < qtdTarefas; idx++) {
         fprintf(listaDeTarefas, "%s %d", tarefas[idx].descricao, tarefas[idx].estaConcluida);
     }
+
+    return 1;
 }
 
 int carregar_tarefas() {
@@ -56,8 +78,7 @@ int carregar_tarefas() {
     Tarefa *tarefa = malloc(sizeof(Tarefa));
 
     while (fscanf(listaDeTarefas, "%s %d", (*tarefa).descricao, (*tarefa).estaConcluida) == 2) {
-        tarefas[qtdTarefas] = *tarefa;
-        qtdTarefas++;
+        adicionar_tarefa(*tarefa);
     }
 
     free(tarefa);
@@ -74,10 +95,8 @@ int tarefas_sao_iguais(Tarefa *tarefa1, Tarefa *tarefa2) {
 }
 
 int encontrar_tarefa(Tarefa *tarefa) {
-    for (int idx = 0; idx < qtdTarefas; idx++) {
-        if (tarefas_sao_iguais(tarefa, &tarefas[idx]))
-            return idx;
-    }
+    for (int idx = 0; idx < qtdTarefas; idx++)
+        if (tarefas_sao_iguais(tarefa, &tarefas[idx])) return idx;
 
     return -1; // não encontrou
 }
