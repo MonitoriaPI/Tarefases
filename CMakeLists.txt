@@ -15,6 +15,8 @@ add_executable(${PROJECT_NAME}
         tarefas_funcs.c
         tarefas_funcs.h
         dbg.h
+        cli_utils.c
+        cli_utils.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${GTK_LIBRARIES})

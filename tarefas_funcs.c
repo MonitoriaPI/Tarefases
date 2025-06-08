@@ -7,15 +7,17 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "cli.h"
-#include "dbg.h"
+#include "cli_utils.h"
+
 
 #define str_equals(x, y) (strcmp((x), (y)) == 0)
+
+const char *nomeDoArquivo = ".tarefases";
 
 Tarefa tarefas[QTD_MAX_TAREFAS];
 int qtdTarefas = 0;
 
-Tarefa construir_tarefa(char *descricao, int estaConcluida) {
+Tarefa construir_tarefa(const char *descricao, int estaConcluida) {
     Tarefa t = {
         .descricao = strdup(descricao),
         .estaConcluida = estaConcluida
@@ -23,7 +25,7 @@ Tarefa construir_tarefa(char *descricao, int estaConcluida) {
     return t;
 }
 
-void copiar_tarefa(Tarefa *tarefaDest, Tarefa *tarefaSrc) {
+void copiar_tarefa(Tarefa *tarefaDest, const Tarefa *tarefaSrc) {
     (*tarefaDest).descricao = strdup((*tarefaSrc).descricao);
     (*tarefaDest).estaConcluida = (*tarefaSrc).estaConcluida;
 }
@@ -62,7 +64,7 @@ int atualizar_tarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
 int salvar_tarefas() {
     if (qtdTarefas == 0) return 0;
 
-    FILE *listaDeTarefas = fopen("tarefas.TODO~", "w");
+    FILE *listaDeTarefas = fopen(nomeDoArquivo, "w");
     if (listaDeTarefas == NULL) return -1;
 
     for (int idx = 0; idx < qtdTarefas; idx++) {
@@ -75,7 +77,7 @@ int salvar_tarefas() {
 }
 
 int carregar_tarefas() {
-    FILE *listaDeTarefas = fopen("tarefas.TODO~", "r");
+    FILE *listaDeTarefas = fopen(nomeDoArquivo, "r");
     if (listaDeTarefas == NULL) return -1;
 
     char descricao[MAX_BUFF_SIZE];
@@ -93,7 +95,7 @@ int carregar_tarefas() {
     return 1;
 }
 
-int tarefas_sao_iguais(Tarefa *tarefa1, Tarefa *tarefa2) {
+int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2) {
     return (
       str_equals((*tarefa1).descricao, (*tarefa2).descricao) &&
       (*tarefa1).estaConcluida == (*tarefa2).estaConcluida
