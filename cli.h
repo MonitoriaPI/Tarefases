@@ -5,7 +5,7 @@
 #ifndef CLI_H
 #define CLI_H
 
-int tela_principal();
+int cli_tela_principal();
 void listar_tarefas();
 
 void tela_adicao_tarefas();

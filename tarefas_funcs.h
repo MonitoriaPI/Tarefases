@@ -26,15 +26,15 @@ int remover_tarefa(Tarefa *tarefa);
 
 int atualizar_tarefa(Tarefa tarefa, Tarefa tarefaAtualizada);
 
+int encontrar_tarefa(const Tarefa *tarefa);
+
+int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2);
+
 // 0    : nenhuma tarefa registrada no momento
 // -1   : erro ao criar o arquivo das tarefas
 int salvar_tarefas();
 
 // -1   : arquivo das tarefas não existe
 int carregar_tarefas();
-
-int encontrar_tarefa(const Tarefa *tarefa);
-
-int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2);
 
 #endif //TAREFAS_FUNCS_H

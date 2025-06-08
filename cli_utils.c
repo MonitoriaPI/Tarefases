@@ -2,9 +2,9 @@
 // Created by pnich on 07/06/2025.
 //
 
-#include "cli_utils.h"
-
 #include <stdio.h>
+
+#include "cli_utils.h"
 
 #if _WIN32
 #include <windows.h>

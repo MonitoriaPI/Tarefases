@@ -2,11 +2,11 @@
 // Created by pnich on 06/06/2025.
 //
 
-#include "tarefas_funcs.h"
 
 #include <stdio.h>
 #include <string.h>
 
+#include "tarefas_funcs.h"
 #include "cli_utils.h"
 
 
@@ -18,6 +18,9 @@ Tarefa tarefas[QTD_MAX_TAREFAS];
 int qtdTarefas = 0;
 
 Tarefa construir_tarefa(const char *descricao, int estaConcluida) {
+    // é necessário duplicar a string, se não o que vai ser passado
+    // é o ponteiro que referencia sua memória, em vez de seu conteúdo
+
     Tarefa t = {
         .descricao = strdup(descricao),
         .estaConcluida = estaConcluida
@@ -26,6 +29,9 @@ Tarefa construir_tarefa(const char *descricao, int estaConcluida) {
 }
 
 void copiar_tarefa(Tarefa *tarefaDest, const Tarefa *tarefaSrc) {
+    // é necessário duplicar a string, se não o que vai ser passado
+    // é o ponteiro que referencia sua memória, em vez de seu conteúdo
+
     (*tarefaDest).descricao = strdup((*tarefaSrc).descricao);
     (*tarefaDest).estaConcluida = (*tarefaSrc).estaConcluida;
 }
@@ -61,6 +67,20 @@ int atualizar_tarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
     return 1;
 }
 
+int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2) {
+    return (
+      str_equals((*tarefa1).descricao, (*tarefa2).descricao) &&
+      (*tarefa1).estaConcluida == (*tarefa2).estaConcluida
+    );
+}
+
+int encontrar_tarefa(const Tarefa *tarefa) {
+    for (int idx = 0; idx < qtdTarefas; idx++)
+        if (tarefas_sao_iguais(tarefa, &tarefas[idx])) return idx;
+
+    return -1; // não encontrou
+}
+
 int salvar_tarefas() {
     if (qtdTarefas == 0) return 0;
 
@@ -94,19 +114,3 @@ int carregar_tarefas() {
 
     return 1;
 }
-
-int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2) {
-    return (
-      str_equals((*tarefa1).descricao, (*tarefa2).descricao) &&
-      (*tarefa1).estaConcluida == (*tarefa2).estaConcluida
-    );
-}
-
-int encontrar_tarefa(Tarefa *tarefa) {
-    for (int idx = 0; idx < qtdTarefas; idx++)
-        if (tarefas_sao_iguais(tarefa, &tarefas[idx])) return idx;
-
-    return -1; // não encontrou
-}
-
-

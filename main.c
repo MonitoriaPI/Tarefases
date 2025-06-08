@@ -1,5 +1,5 @@
 #include "cli.h"
 
 int main(int argv, char** argc) {
-    return tela_principal();
+    return cli_tela_principal();
 }

@@ -2,15 +2,15 @@
 // Created by pnich on 06/06/2025.
 //
 
-#include "cli.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cli.h"
 #include "cli_utils.h"
 #include "tarefas_funcs.h"
 
-int tela_principal() {
+int cli_tela_principal() {
 
     if (carregar_tarefas() == -1) {
         puts("Arquivo de tarefas não encontrado...");
