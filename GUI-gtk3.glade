@@ -2,6 +2,84 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkWindow" id="janela_adicionar_tarefa">
+    <property name="can-focus">True</property>
+    <property name="receives-default">True</property>
+    <property name="title" translatable="yes">TAREFASES</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="deletable">False</property>
+    <child>
+      <!-- n-columns=3 n-rows=4 -->
+      <object class="GtkGrid" id="grid2">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-start">20</property>
+        <property name="margin-end">20</property>
+        <property name="margin-top">20</property>
+        <property name="margin-bottom">50</property>
+        <property name="row-spacing">20</property>
+        <property name="column-spacing">10</property>
+        <property name="row-homogeneous">True</property>
+        <property name="column-homogeneous">True</property>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Digite a tarefa</property>
+            <property name="xalign">0.039999999105930328</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 20"/>
+              <attribute name="weight" value="medium"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+            <property name="width">3</property>
+            <property name="height">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="campo_nome_da_tarefa">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="botao_sair_tela_adicionar_tarefa">
+            <property name="label" translatable="yes">Voltar</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="margin-end">300</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+            <property name="width">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="botao_confirmar_tarefa">
+            <property name="label" translatable="yes">Confirmar</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">2</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkApplicationWindow" id="janela_principal">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -10,7 +88,7 @@
     <property name="default-height">480</property>
     <child>
       <!-- n-columns=10 n-rows=16 -->
-      <object class="GtkGrid">
+      <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-start">100</property>
@@ -34,7 +112,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="botao_adicionar_tarefa">
             <property name="label" translatable="yes">Adicionar tarefa</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -48,7 +126,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="botao_remover_tarefa">
             <property name="label" translatable="yes">Remover tarefa</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -62,7 +140,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="botao_salvar_tarefas">
             <property name="label" translatable="yes">Salvar tarefas</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -79,6 +157,7 @@
           <object class="GtkListBox" id="lista_de_tarefas">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="activate-on-single-click">False</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

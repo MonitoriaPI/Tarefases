@@ -25,7 +25,11 @@ add_executable(${PROJECT_NAME}
         cli_utils.c
         cli_utils.h
         ${CMAKE_CURRENT_BINARY_DIR}/GUI-gtk4.glade
-        ${CMAKE_CURRENT_BINARY_DIR}/logoTeste.png
+        ${CMAKE_CURRENT_BINARY_DIR}/logoTarefases.png
+        gui.c
+        gui.h
+        gui_callbacks.c
+        gui_callbacks.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${GTK_LIBRARIES})
