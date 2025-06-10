@@ -24,7 +24,7 @@ int adicionar_tarefa(Tarefa tarefa);
 
 int remover_tarefa(Tarefa *tarefa);
 
-int atualizar_tarefa(Tarefa tarefa, Tarefa tarefaAtualizada);
+int atualizar_tarefa(Tarefa *tarefa, Tarefa tarefaAtualizada);
 
 int encontrar_tarefa(const Tarefa *tarefa);
 

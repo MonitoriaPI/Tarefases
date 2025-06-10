@@ -77,7 +77,7 @@ void listar_tarefas() {
     }
 
     for (int i = 0; i < qtdTarefas; i++)
-        printf("[%c] %s\n", ((tarefas[i]).estaConcluida? 'X' : ' '), (tarefas[i]).descricao);
+        printf("[%c] %s\n", tarefas[i].estaConcluida? 'X' : ' ', tarefas[i].descricao);
     puts("");
 }
 
@@ -127,9 +127,6 @@ void tela_modificacao_tarefas() {
     // array eh 0-indexado
     int escolhaTarefa = escolha_em_intervalo("Qual tarefa deseja modificar?", nomesTarefas, qtdTarefas) - 1;
 
-    Tarefa *tarefaAtualizada = malloc(sizeof(Tarefa));
-    copiar_tarefa(tarefaAtualizada, &tarefas[escolhaTarefa]);
-
     char *opcoes[] = {
         "Mudar o nome",
         (tarefas[escolhaTarefa].estaConcluida? "Desmarcar" : "Marcar")
@@ -139,14 +136,10 @@ void tela_modificacao_tarefas() {
     switch (escolhaModificacao) {
     case 1:
         puts("Digite o novo nome");
-        ler_entrada((*tarefaAtualizada).descricao);
+        ler_entrada(tarefas[escolhaTarefa].descricao);
         break;
     case 2:
-        (*tarefaAtualizada).estaConcluida = !(*tarefaAtualizada).estaConcluida;
+        mudar_marcaco_tarefa(&tarefas[escolhaTarefa]);
         break;
     }
-
-    atualizar_tarefa(tarefas[escolhaTarefa], *tarefaAtualizada);
-
-    free(tarefaAtualizada);
 }
