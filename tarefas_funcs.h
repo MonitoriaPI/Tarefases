@@ -30,6 +30,8 @@ int encontrar_tarefa(const Tarefa *tarefa);
 
 int tarefas_sao_iguais(const Tarefa *tarefa1, const Tarefa *tarefa2);
 
+void mudar_marcaco_tarefa(Tarefa *tarefa);
+
 // 0    : nenhuma tarefa registrada no momento
 // -1   : erro ao criar o arquivo das tarefas
 int salvar_tarefas();

@@ -5,6 +5,7 @@
 #include "gui.h"
 
 int main(int argc, char** argv) {
+
     int cli = 0;
 
     if (argc > 1)

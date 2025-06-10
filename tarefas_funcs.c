@@ -114,3 +114,7 @@ int carregar_tarefas() {
 
     return 1;
 }
+
+void mudar_marcaco_tarefa(Tarefa *tarefa) {
+    (*tarefa).estaConcluida = !(*tarefa).estaConcluida;
+}
