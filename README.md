@@ -24,4 +24,5 @@ src/
 |--- main.c                # ponto de entrada do programa
 |--- tarefas_funcs.c       # lógica interna das tarefas
 |--- tarefas_funcs.h
+CMakeLists.txt             # Arquivo CMake para compilação do projeto
 ```
