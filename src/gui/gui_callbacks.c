@@ -6,7 +6,7 @@
 
 #include "gui_callbacks.h"
 
-#include "dbg.h"
+#include "../../dbg.h"
 #include "gui.h"
 
 void on_botao_adicionar_tarefa_clicked(GtkButton *b) {

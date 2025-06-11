@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
-#include "cli.h"
-#include "gui.h"
+#include "cli/cli.h"
+#include "gui/gui.h"
 
 int main(int argc, char** argv) {
 

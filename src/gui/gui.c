@@ -5,7 +5,7 @@
 
 #include "gui.h"
 
-#include "dbg.h"
+#include "../../dbg.h"
 #include "gui_callbacks.h"
 
 GtkWidget *janela;
@@ -31,8 +31,13 @@ GtkWidget *indicadores_das_tarefas[QTD_MAX_TAREFAS];
 GtkBuilder *builder;
 
 void activate (GtkApplication *app) {
-    builder = gtk_builder_new_from_file("GUI-gtk4.glade");
+    //// BOILERPLATE
 
+    // associa o xml ao objeto builder
+    builder = gtk_builder_new_from_file("GUI.ui");
+    //
+
+    // associa os widgets no xml a objetos no código
     janela                  = GTK_WIDGET(gtk_builder_get_object(builder, "janela_principal"));
     logo                    = GTK_WIDGET(gtk_builder_get_object(builder, "logo"));
     lista_de_tarefas        = GTK_WIDGET(gtk_builder_get_object(builder, "lista_de_tarefas"));
@@ -50,24 +55,35 @@ void activate (GtkApplication *app) {
     popover_carregar_tarefas    = GTK_WIDGET(gtk_builder_get_object(builder, "popover_carregar_tarefas"));
     popover_confirmar_tarefa    = GTK_WIDGET(gtk_builder_get_object(builder, "popover_confirmar_tarefa"));
     popover_limite_tarefas      = GTK_WIDGET(gtk_builder_get_object(builder, "popover_limite_tarefas"));
+    //
 
+    // conecta as funções callback aos seus respectivos widgets
     g_signal_connect(botao_adicionar_tarefa, "clicked", G_CALLBACK(on_botao_adicionar_tarefa_clicked), NULL);
     g_signal_connect(botao_sair_tela_adicionar_tarefa, "clicked", G_CALLBACK(sair_tela_adicionar_tarefa), NULL);
     g_signal_connect(botao_confirmar_tarefa, "clicked", G_CALLBACK(confirmar_tarefa), NULL);
     g_signal_connect(botao_remover_tarefa, "clicked", G_CALLBACK(on_botao_remover_tarefa_clicked), NULL);
     g_signal_connect(botao_salvar_tarefas, "clicked", G_CALLBACK(on_botao_salvar_tarefas_clicked), NULL);
     g_signal_connect(janela, "close_request", G_CALLBACK(on_janela_close_request), NULL);
+    //
 
+    // associa os popovers aos seus respectivos widgets
     gtk_widget_set_parent(popover_remover_tarefa, botao_remover_tarefa);
     gtk_widget_set_parent(popover_salvar_tarefas, botao_salvar_tarefas);
     gtk_widget_set_parent(popover_carregar_tarefas, janela);
     gtk_widget_set_parent(popover_confirmar_tarefa, botao_confirmar_tarefa);
     gtk_widget_set_parent(popover_limite_tarefas, botao_adicionar_tarefa);
+    //
 
-
+    // coloca a imagem no widget do tipo GtkImage
     gtk_image_set_from_file(GTK_IMAGE(logo), "logoTarefases.png");
+    //
 
+    // associa a janela principal à inicialização do app
     gtk_window_set_application(GTK_WINDOW(janela), app);
+    //
+
+    g_object_unref(builder);
+    ////
 
     if (carregar_tarefas() == -1) {
         gtk_popover_popup(GTK_POPOVER(popover_carregar_tarefas));
@@ -75,8 +91,6 @@ void activate (GtkApplication *app) {
         for (int i = 0; i < qtdTarefas; i++)
             adicionar_tarefa_list_box(tarefas[i]);
     }
-
-    g_object_unref(builder);
 }
 
 void adicionar_tarefa_list_box(Tarefa tarefa) {

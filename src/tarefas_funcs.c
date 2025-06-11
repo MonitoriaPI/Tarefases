@@ -7,7 +7,7 @@
 #include <string.h>
 
 #include "tarefas_funcs.h"
-#include "cli_utils.h"
+#include "cli/cli_utils.h"
 
 
 #define str_equals(x, y) (strcmp((x), (y)) == 0)
@@ -103,6 +103,7 @@ int carregar_tarefas() {
     char descricao[MAX_BUFF_SIZE];
     int estaConcluida = 0;
 
+    // lê todos os caracteres até encontrar o primeiro ponto e vírgula, e o desconsidera pro buffer
     while (fscanf(listaDeTarefas, "%[^;];; %d\n", descricao, &estaConcluida) == 2) {
         adicionar_tarefa(construir_tarefa(
             descricao,

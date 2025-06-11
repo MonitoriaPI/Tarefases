@@ -8,7 +8,7 @@
 
 #include "cli.h"
 #include "cli_utils.h"
-#include "tarefas_funcs.h"
+#include "../tarefas_funcs.h"
 
 int cli_tela_principal() {
 

@@ -17,6 +17,7 @@ void ler_entrada(char *str) {
     strcpy(str, buffer);
     tirar_brancos(str);
 
+    // acaba travando o terminal
     //limpar_buffer();
 }
 
