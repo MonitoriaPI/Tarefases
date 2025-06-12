@@ -111,7 +111,7 @@ void adicionar_tarefa_list_box(Tarefa tarefa) {
     int idx = gtk_list_box_row_get_index(GTK_LIST_BOX_ROW(linha));
     indicadores_das_tarefas[idx] = checkButton;
 
-    g_signal_connect(checkButton, "toggled", G_CALLBACK(on_tarefa_marcada), GINT_TO_POINTER(idx));
+    g_signal_connect(indicadores_das_tarefas[idx], "toggled", G_CALLBACK(on_tarefa_marcada), GINT_TO_POINTER(gtk_list_box_row_get_index(GTK_LIST_BOX_ROW(gtk_widget_get_parent(gtk_widget_get_parent(checkButton))))));
 
 }
 

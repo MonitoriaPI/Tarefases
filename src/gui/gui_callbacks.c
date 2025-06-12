@@ -51,9 +51,15 @@ void on_botao_remover_tarefa_clicked(GtkButton *b) {
     }
 
     int idx = gtk_list_box_row_get_index(linhaSelecionada);
-    remover_tarefa(&tarefas[idx]);
 
     gtk_list_box_remove(GTK_LIST_BOX(lista_de_tarefas), GTK_WIDGET(linhaSelecionada));
+    for (int i = idx; i < qtdTarefas-1; i++) {
+        indicadores_das_tarefas[i] = indicadores_das_tarefas[i+1];
+        g_signal_handlers_disconnect_by_data(indicadores_das_tarefas[i], GINT_TO_POINTER(i+1));
+        g_signal_connect(indicadores_das_tarefas[i], "toggled", G_CALLBACK(on_tarefa_marcada), GINT_TO_POINTER(i));
+    }
+
+    remover_tarefa(&tarefas[idx]);
 }
 
 void on_botao_salvar_tarefas_clicked(GtkButton *b) {
@@ -64,6 +70,8 @@ void on_botao_salvar_tarefas_clicked(GtkButton *b) {
 
 void on_tarefa_marcada(GtkWidget *w, gpointer data) {
     int idx = GPOINTER_TO_INT(data);
+
+    g_print("idx = %d\n",idx);
 
     mudar_marcaco_tarefa(&tarefas[idx]);
 }
